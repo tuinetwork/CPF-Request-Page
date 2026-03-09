@@ -89,12 +89,10 @@
                     <h1 class="text-[1.1rem] sm:text-[1.35rem] print:text-[1.35rem] font-bold text-gray-800 leading-tight">บริษัท ซีพีเอฟ เทรดดิ้ง จำกัด</h1>
                     
                     <!-- Date Input -->
-                    <!-- ปรับการตั้งค่าให้อยู่ชิดขวา ml-auto และ justify-end เสมอ -->
                     <div class="w-full sm:w-auto print:w-auto text-right flex-shrink-0 flex items-center justify-end gap-1 text-gray-700 mt-2 sm:mt-0 ml-auto">
                         <label class="whitespace-nowrap">วันที่</label>
                         <div class="relative inline-block text-right" id="date-picker-wrapper">
-                            <!-- เปลี่ยนจาก input เป็น span เพื่อให้กล่องข้อความหดตัวพอดีกับตัวอักษร ทำให้ชิดทั้งตัวอักษรและชิดขอบกระดาษ -->
-                            <span id="doc-date-display" class="fillable-input px-1 py-1 text-gray-800 cursor-pointer inline-block min-w-[100px] text-center" onclick="toggleDatePicker(event)"></span>
+                            <span id="doc-date-display" class="fillable-input px-1 py-1 text-gray-800 cursor-pointer inline-block min-w-[100px] text-left" onclick="toggleDatePicker(event)"></span>
                             
                             <div id="custom-datepicker" class="hidden absolute top-full left-auto right-0 mt-2 bg-white rounded-xl shadow-2xl border border-gray-200 w-72 p-4 z-50 text-sm no-print">
                                 <div class="flex justify-between items-center mb-4">
@@ -119,7 +117,6 @@
                     </div>
                 </div>
                 
-                <!-- แถวที่ 2 และ 3: ชื่อบริษัทภาษาอังกฤษ -->
                 <p class="text-[0.8rem] sm:text-[0.95rem] print:text-[0.95rem] text-gray-700 font-medium leading-tight mb-0.5">CPF TRADING COMPANY LIMITED</p>
                 <p class="text-[0.65rem] sm:text-[0.8rem] print:text-[0.8rem] text-gray-500 leading-tight">A MEMBER OF CHAROEN POKPHAND FOODS COMPANY LIMITED</p>
             </div>
@@ -146,8 +143,11 @@
             <p class="indent-8 sm:indent-12 print:indent-12 text-justify leading-relaxed sm:leading-loose print:leading-loose">
                 อนึ่ง ทางบริษัทฯ มีความประสงค์ขอใช้พื้นที่ในการจำหน่ายสินค้าสวัสดิการพนักงาน ในวันที่ 
                 <input type="text" value="12, 19, 26 ธันวาคม" placeholder="ระบุวันที่จัดงาน" class="fillable-input px-1 sm:px-2 py-0.5 font-bold w-full sm:w-48 print:w-48 sm:text-center text-gray-800 mb-1 sm:mb-0">
-                เวลา 
-                <input type="text" value="8.00 น. ถึง 17.00 น." placeholder="ระบุเวลา" class="fillable-input px-1 sm:px-2 py-0.5 font-bold w-full sm:w-40 print:w-40 sm:text-center text-gray-800 mb-1 sm:mb-0">
+                ตั้งแต่เวลา 
+                <!-- แบ่งเวลาเป็น 2 ช่อง -->
+                <input type="text" value="8.00 น." placeholder="เวลาเริ่ม" class="fillable-input px-1 sm:px-2 py-0.5 font-bold w-20 sm:w-24 print:w-24 text-center text-gray-800">
+                ถึง 
+                <input type="text" value="17.00 น." placeholder="เวลาสิ้นสุด" class="fillable-input px-1 sm:px-2 py-0.5 font-bold w-20 sm:w-24 print:w-24 text-center text-gray-800">
                 ขนาดพื้นที่ 2 เมตร บริเวณ 
                 <input type="text" value="" placeholder="ระบุสถานที่/จุดตั้งบูธ" class="fillable-input px-1 sm:px-2 py-0.5 font-bold w-full sm:w-64 print:w-64 sm:text-center text-gray-800 mb-1 sm:mb-0">
                 ทางบริษัทฯ หวังเป็นอย่างยิ่งว่าจะได้รับความกรุณาจากท่านในการจำหน่ายสินค้าในหน่วยงานของท่านและขอขอบคุณมา ณ โอกาสนี้
@@ -198,7 +198,6 @@
                 บันทึกเป็น PDF
             </button>
             
-            <!-- ปุ่มติดตั้ง PWA (ซ่อนเป็นค่าเริ่มต้น จะแสดงเมื่อเบราว์เซอร์รองรับ) -->
             <button id="install-pwa-btn" class="hidden w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 sm:py-2 px-6 rounded-full sm:rounded-full transition duration-300 shadow-md flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -212,9 +211,8 @@
     <div id="toast-container" class="fixed bottom-5 left-1/2 transform -translate-x-1/2 z-50 flex flex-col gap-2 pointer-events-none w-[90%] sm:w-auto text-center"></div>
 
     <script>
-        // === PWA SETUP SCRIPT (รันภายในหน้าเดียว) ===
+        // === PWA SETUP SCRIPT ===
         (function initPWA() {
-            // 1. สร้าง Manifest.json แบบชั่วคราว (Blob) แล้วแทรกลงใน <head>
             const manifestJSON = {
                 name: "แบบฟอร์มขอความอนุเคราะห์ใช้พื้นที่ CPF",
                 short_name: "CPF Form",
@@ -223,7 +221,6 @@
                 background_color: "#f4f4f5",
                 theme_color: "#e31837",
                 icons: [{
-                    // ใช้ SVG โลโก้แบบฝังตัว (Data URI)
                     src: "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20512%20512%27%3E%3Crect%20width%3D%27512%27%20height%3D%27512%27%20fill%3D%27%23ffc220%27%20rx%3D%27100%27%2F%3E%3Ccircle%20cx%3D%27256%27%20cy%3D%27256%27%20r%3D%27230%27%20fill%3D%27%23ffc220%27%20stroke%3D%27%23e31837%27%20stroke-width%3D%2720%27%2F%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20dominant-baseline%3D%27central%27%20text-anchor%3D%27middle%27%20font-family%3D%27Arial%27%20font-weight%3D%27900%27%20font-size%3D%27200%27%20fill%3D%27%23e31837%27%3ECP%3C%2Ftext%3E%3C%2Fsvg%3E",
                     sizes: "512x512",
                     type: "image/svg+xml",
@@ -237,12 +234,10 @@
             linkManifest.href = manifestUrl;
             document.head.appendChild(linkManifest);
 
-            // 2. สร้าง Service Worker แบบชั่วคราว (Blob) เพื่อให้รองรับ Offline พื้นฐาน
             const swCode = `
                 self.addEventListener('install', (e) => { self.skipWaiting(); });
                 self.addEventListener('activate', (e) => { e.waitUntil(clients.claim()); });
                 self.addEventListener('fetch', (e) => {
-                    // การดักจับ Fetch พื้นฐานเพื่อให้เข้าเกณฑ์ PWA
                     e.respondWith(fetch(e.request).catch(() => new Response('Offline Mode', { status: 503 })));
                 });
             `;
@@ -257,14 +252,13 @@
                 });
             }
 
-            // 3. จัดการปุ่ม "ติดตั้งแอป (PWA)"
             let deferredPrompt;
             const installBtn = document.getElementById('install-pwa-btn');
 
             window.addEventListener('beforeinstallprompt', (e) => {
                 e.preventDefault();
                 deferredPrompt = e;
-                installBtn.classList.remove('hidden'); // แสดงปุ่มเมื่อแอปสามารถติดตั้งได้
+                installBtn.classList.remove('hidden');
             });
 
             installBtn.addEventListener('click', async () => {
@@ -272,7 +266,7 @@
                     deferredPrompt.prompt();
                     const { outcome } = await deferredPrompt.userChoice;
                     if (outcome === 'accepted') {
-                        installBtn.classList.add('hidden'); // ซ่อนปุ่มถ้าผู้ใช้กดยอมรับการติดตั้ง
+                        installBtn.classList.add('hidden');
                     }
                     deferredPrompt = null;
                 }
@@ -288,7 +282,6 @@
         let currentDispDate = new Date();
         let selectedDay = null, selectedMonth = null, selectedYear = null;
 
-        // กำหนดให้วันที่แสดงผลเป็น "วันที่ปัจจุบัน" (ปี พ.ศ. ปัจจุบัน) อัตโนมัติเมื่อโหลดหน้าเว็บ
         window.addEventListener('DOMContentLoaded', () => {
             const today = new Date();
             const dayStr = String(today.getDate()).padStart(2, '0');
