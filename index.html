@@ -92,9 +92,9 @@
                     <!-- ปรับการตั้งค่าให้อยู่ชิดขวา ml-auto และ justify-end เสมอ -->
                     <div class="w-full sm:w-auto print:w-auto text-right flex-shrink-0 flex items-center justify-end gap-1 text-gray-700 mt-2 sm:mt-0 ml-auto">
                         <label class="whitespace-nowrap">วันที่</label>
-                        <div class="relative inline-block text-right" id="date-picker-wrapper">
-                            <!-- บังคับ input ให้เป็น text-right และตัด padding ด้านขวา (pr-0) เพื่อให้ชิดขอบจริงๆ -->
-                            <input type="text" id="doc-date-display" placeholder="เลือกวันที่" readonly class="fillable-input pl-1 pr-0 py-1 w-[140px] text-right text-gray-800 cursor-pointer" onclick="toggleDatePicker(event)">
+                        <div class="relative inline-block text-left" id="date-picker-wrapper">
+                            <!-- เปลี่ยนเป็น text-left และปรับความกว้างให้พอดี เพื่อให้ข้อความชิดกับคำว่า วันที่ -->
+                            <input type="text" id="doc-date-display" placeholder="เลือกวันที่" readonly class="fillable-input px-1 py-1 w-[130px] text-left text-gray-800 cursor-pointer" onclick="toggleDatePicker(event)">
                             
                             <div id="custom-datepicker" class="hidden absolute top-full left-auto right-0 mt-2 bg-white rounded-xl shadow-2xl border border-gray-200 w-72 p-4 z-50 text-sm no-print">
                                 <div class="flex justify-between items-center mb-4">
