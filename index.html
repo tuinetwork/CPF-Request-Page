@@ -75,48 +75,52 @@
 
     <div class="max-w-4xl mx-auto bg-white p-5 sm:p-8 md:p-16 paper-shadow rounded-lg text-[14px] sm:text-[15px] leading-relaxed overflow-hidden print:overflow-visible">
         <!-- Header / Logo -->
-        <div class="flex flex-col sm:flex-row print:flex-row justify-between items-start sm:items-center print:items-center mb-6 sm:mb-8 border-b pb-4 sm:pb-6 print:pb-4 gap-4 sm:gap-4">
+        <div class="flex items-start sm:items-center print:items-center mb-6 sm:mb-8 border-b pb-4 sm:pb-6 print:pb-4 gap-3 sm:gap-4">
             
-            <div class="flex items-center gap-3 sm:gap-4 w-full sm:w-auto">
-                <div class="bg-[#ffc220] w-[64px] h-[64px] sm:w-[84px] sm:h-[84px] print:w-[84px] print:h-[84px] rounded-full flex items-center justify-center shadow-md p-[2px] sm:p-[3px] print:p-[3px] flex-shrink-0" style="print-color-adjust: exact; -webkit-print-color-adjust: exact;">
-                    <div class="border-[2px] sm:border-[3px] print:border-[3px] border-[#e31837] w-full h-full rounded-full flex items-center justify-center">
-                        <span class="text-[#e31837] font-black text-[30px] sm:text-[40px] print:text-[40px] tracking-tighter" style="font-family: Arial, sans-serif;">CP</span>
-                    </div>
-                </div>
-                <div class="flex-1">
-                    <h1 class="text-[1.1rem] sm:text-[1.35rem] print:text-[1.35rem] font-bold text-gray-800 leading-tight mb-1">บริษัท ซีพีเอฟ เทรดดิ้ง จำกัด</h1>
-                    <p class="text-[0.8rem] sm:text-[0.95rem] print:text-[0.95rem] text-gray-700 font-medium leading-tight mb-0.5">CPF TRADING COMPANY LIMITED</p>
-                    <p class="text-[0.65rem] sm:text-[0.8rem] print:text-[0.8rem] text-gray-500 leading-tight">A MEMBER OF CHAROEN POKPHAND FOODS COMPANY LIMITED</p>
+            <div class="bg-[#ffc220] w-[64px] h-[64px] sm:w-[84px] sm:h-[84px] print:w-[84px] print:h-[84px] rounded-full flex items-center justify-center shadow-md p-[2px] sm:p-[3px] print:p-[3px] flex-shrink-0" style="print-color-adjust: exact; -webkit-print-color-adjust: exact;">
+                <div class="border-[2px] sm:border-[3px] print:border-[3px] border-[#e31837] w-full h-full rounded-full flex items-center justify-center">
+                    <span class="text-[#e31837] font-black text-[30px] sm:text-[40px] print:text-[40px] tracking-tighter" style="font-family: Arial, sans-serif;">CP</span>
                 </div>
             </div>
-
-            <!-- Date Input -->
-            <div class="w-full sm:w-auto print:w-auto text-left sm:text-right print:text-right flex-shrink-0 flex items-center sm:justify-end gap-1 text-gray-700 mt-2 sm:mt-0">
-                <label class="whitespace-nowrap">วันที่</label>
-                <div class="relative inline-block text-left" id="date-picker-wrapper">
-                    <!-- นำ value ที่ล็อกค่าไว้ออก เพื่อให้ JS กำหนดค่าเป็นวันปัจจุบันแทน -->
-                    <input type="text" id="doc-date-display" placeholder="เลือกวันที่" readonly class="fillable-input pl-1 pr-2 py-1 w-[140px] text-left text-gray-800 cursor-pointer" onclick="toggleDatePicker(event)">
+            
+            <div class="flex-1 w-full">
+                <!-- แถวที่ 1: ชื่อบริษัทภาษาไทย และ วันที่ ให้อยู่บรรทัดเดียวกัน -->
+                <div class="flex flex-col sm:flex-row print:flex-row justify-between sm:items-end print:items-end gap-1 sm:gap-4 mb-0.5 sm:mb-1">
+                    <h1 class="text-[1.1rem] sm:text-[1.35rem] print:text-[1.35rem] font-bold text-gray-800 leading-tight">บริษัท ซีพีเอฟ เทรดดิ้ง จำกัด</h1>
                     
-                    <div id="custom-datepicker" class="hidden absolute top-full left-0 sm:left-auto right-auto sm:right-0 mt-2 bg-white rounded-xl shadow-2xl border border-gray-200 w-72 p-4 z-50 text-sm no-print">
-                        <div class="flex justify-between items-center mb-4">
-                            <button type="button" onclick="changeMonth(-1, event)" class="p-2 hover:bg-gray-100 rounded-full cursor-pointer transition text-gray-600 focus:outline-none">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                            </button>
-                            <div class="font-bold text-gray-800 text-[1.05rem]" id="month-year-display"></div>
-                            <button type="button" onclick="changeMonth(1, event)" class="p-2 hover:bg-gray-100 rounded-full cursor-pointer transition text-gray-600 focus:outline-none">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                            </button>
-                        </div>
-                        <div class="grid grid-cols-7 gap-1 text-center mb-2 font-semibold text-gray-500 text-xs">
-                            <div class="text-red-500">อา</div><div>จ</div><div>อ</div><div>พ</div><div>พฤ</div><div>ศ</div><div class="text-red-500">ส</div>
-                        </div>
-                        <div id="calendar-days" class="grid grid-cols-7 gap-1 text-center"></div>
-                        <div class="mt-4 flex justify-between border-t pt-3">
-                            <button type="button" onclick="clearDate(event)" class="text-gray-500 hover:bg-gray-100 px-3 py-1.5 rounded-md text-xs font-semibold transition focus:outline-none">ล้างค่า</button>
-                            <button type="button" onclick="setToday(event)" class="bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700 px-3 py-1.5 rounded-md text-xs font-bold transition focus:outline-none">เลือกวันนี้</button>
+                    <!-- Date Input -->
+                    <div class="w-full sm:w-auto print:w-auto text-left sm:text-right print:text-right flex-shrink-0 flex items-center sm:justify-end gap-1 text-gray-700">
+                        <label class="whitespace-nowrap">วันที่</label>
+                        <div class="relative inline-block text-left" id="date-picker-wrapper">
+                            <!-- นำ value ที่ล็อกค่าไว้ออก เพื่อให้ JS กำหนดค่าเป็นวันปัจจุบันแทน -->
+                            <input type="text" id="doc-date-display" placeholder="เลือกวันที่" readonly class="fillable-input pl-1 pr-2 py-1 w-[140px] text-left text-gray-800 cursor-pointer" onclick="toggleDatePicker(event)">
+                            
+                            <div id="custom-datepicker" class="hidden absolute top-full left-0 sm:left-auto right-auto sm:right-0 mt-2 bg-white rounded-xl shadow-2xl border border-gray-200 w-72 p-4 z-50 text-sm no-print">
+                                <div class="flex justify-between items-center mb-4">
+                                    <button type="button" onclick="changeMonth(-1, event)" class="p-2 hover:bg-gray-100 rounded-full cursor-pointer transition text-gray-600 focus:outline-none">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                                    </button>
+                                    <div class="font-bold text-gray-800 text-[1.05rem]" id="month-year-display"></div>
+                                    <button type="button" onclick="changeMonth(1, event)" class="p-2 hover:bg-gray-100 rounded-full cursor-pointer transition text-gray-600 focus:outline-none">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                    </button>
+                                </div>
+                                <div class="grid grid-cols-7 gap-1 text-center mb-2 font-semibold text-gray-500 text-xs">
+                                    <div class="text-red-500">อา</div><div>จ</div><div>อ</div><div>พ</div><div>พฤ</div><div>ศ</div><div class="text-red-500">ส</div>
+                                </div>
+                                <div id="calendar-days" class="grid grid-cols-7 gap-1 text-center"></div>
+                                <div class="mt-4 flex justify-between border-t pt-3">
+                                    <button type="button" onclick="clearDate(event)" class="text-gray-500 hover:bg-gray-100 px-3 py-1.5 rounded-md text-xs font-semibold transition focus:outline-none">ล้างค่า</button>
+                                    <button type="button" onclick="setToday(event)" class="bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700 px-3 py-1.5 rounded-md text-xs font-bold transition focus:outline-none">เลือกวันนี้</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                
+                <!-- แถวที่ 2 และ 3: ชื่อบริษัทภาษาอังกฤษ -->
+                <p class="text-[0.8rem] sm:text-[0.95rem] print:text-[0.95rem] text-gray-700 font-medium leading-tight mb-0.5">CPF TRADING COMPANY LIMITED</p>
+                <p class="text-[0.65rem] sm:text-[0.8rem] print:text-[0.8rem] text-gray-500 leading-tight">A MEMBER OF CHAROEN POKPHAND FOODS COMPANY LIMITED</p>
             </div>
         </div>
 
