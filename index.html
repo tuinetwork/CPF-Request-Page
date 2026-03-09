@@ -89,13 +89,14 @@
                     <h1 class="text-[1.1rem] sm:text-[1.35rem] print:text-[1.35rem] font-bold text-gray-800 leading-tight">บริษัท ซีพีเอฟ เทรดดิ้ง จำกัด</h1>
                     
                     <!-- Date Input -->
-                    <div class="w-full sm:w-auto print:w-auto text-left sm:text-right print:text-right flex-shrink-0 flex items-center sm:justify-end gap-1 text-gray-700">
+                    <!-- ปรับการตั้งค่าให้อยู่ชิดขวา ml-auto และ justify-end เสมอ -->
+                    <div class="w-full sm:w-auto print:w-auto text-right flex-shrink-0 flex items-center justify-end gap-1 text-gray-700 mt-2 sm:mt-0 ml-auto">
                         <label class="whitespace-nowrap">วันที่</label>
-                        <div class="relative inline-block text-left" id="date-picker-wrapper">
-                            <!-- นำ value ที่ล็อกค่าไว้ออก เพื่อให้ JS กำหนดค่าเป็นวันปัจจุบันแทน -->
-                            <input type="text" id="doc-date-display" placeholder="เลือกวันที่" readonly class="fillable-input pl-1 pr-2 py-1 w-[140px] text-left text-gray-800 cursor-pointer" onclick="toggleDatePicker(event)">
+                        <div class="relative inline-block text-right" id="date-picker-wrapper">
+                            <!-- บังคับ input ให้เป็น text-right และตัด padding ด้านขวา (pr-0) เพื่อให้ชิดขอบจริงๆ -->
+                            <input type="text" id="doc-date-display" placeholder="เลือกวันที่" readonly class="fillable-input pl-1 pr-0 py-1 w-[140px] text-right text-gray-800 cursor-pointer" onclick="toggleDatePicker(event)">
                             
-                            <div id="custom-datepicker" class="hidden absolute top-full left-0 sm:left-auto right-auto sm:right-0 mt-2 bg-white rounded-xl shadow-2xl border border-gray-200 w-72 p-4 z-50 text-sm no-print">
+                            <div id="custom-datepicker" class="hidden absolute top-full left-auto right-0 mt-2 bg-white rounded-xl shadow-2xl border border-gray-200 w-72 p-4 z-50 text-sm no-print">
                                 <div class="flex justify-between items-center mb-4">
                                     <button type="button" onclick="changeMonth(-1, event)" class="p-2 hover:bg-gray-100 rounded-full cursor-pointer transition text-gray-600 focus:outline-none">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
