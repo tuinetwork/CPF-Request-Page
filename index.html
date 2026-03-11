@@ -10,7 +10,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="CPF Form">
-    <!-- ไอคอนสำหรับ iOS (สร้างจาก SVG Base64) -->
     <link rel="apple-touch-icon" href="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20512%20512%27%3E%3Crect%20width%3D%27512%27%20height%3D%27512%27%20fill%3D%27%23ffc220%27%20rx%3D%27100%27%2F%3E%3Ccircle%20cx%3D%27256%27%20cy%3D%27256%27%20r%3D%27230%27%20fill%3D%27%23ffc220%27%20stroke%3D%27%23e31837%27%20stroke-width%3D%2720%27%2F%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20dominant-baseline%3D%27central%27%20text-anchor%3D%27middle%27%20font-family%3D%27Arial%27%20font-weight%3D%27900%27%20font-size%3D%27200%27%20fill%3D%27%23e31837%27%3ECP%3C%2Ftext%3E%3C%2Fsvg%3E">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -37,7 +36,7 @@
             background-color: #fefce8;
         }
 
-        /* ตั้งค่าสำหรับพิมพ์ / Export PDF A4 */
+        /* ตั้งค่าสำหรับพิมพ์ / Export PDF A4 ให้เหมือนหน้าจอคอม 100% */
         @page {
             size: A4;
             margin: 0;
@@ -47,33 +46,37 @@
                 background-color: white !important; 
                 -webkit-print-color-adjust: exact !important; 
                 print-color-adjust: exact !important; 
-                padding-top: 1.8cm !important; 
-                padding-bottom: 2cm !important;
-                padding-left: 2cm !important;
-                padding-right: 2cm !important;
-                min-width: 800px !important;
+                padding: 0 !important;
+                margin: 0 !important;
             }
             .no-print { display: none !important; }
             .paper-shadow { 
                 box-shadow: none !important; 
-                padding: 0 !important; 
-                max-width: 100% !important; 
-                margin: 0 !important;
+                margin: 0 auto !important;
             }
+            
+            /* ล็อกความกว้างเอกสารให้เป็น Desktop Size เพื่อให้การตัดคำและขึ้นบรรทัดใหม่ใน PDF เป๊ะเหมือนหน้าเว็บ */
+            .max-w-4xl {
+                width: 896px !important;
+                max-width: 896px !important;
+                padding: 4rem !important; /* ระยะขอบกระดาษ */
+            }
+
+            /* คงเส้นประไว้ใน PDF เพื่อรักษาโครงสร้างของฟอร์ม และไม่ให้เกิดช่องว่างแปลกตา */
             input, .fillable-input {
-                border: none !important;
+                border-bottom: 1px dotted #9ca3af !important;
                 background-color: transparent !important;
-                padding-left: 0.25rem !important;
-                padding-right: 0.25rem !important;
                 margin: 0 !important;
             }
             input::placeholder { color: transparent !important; }
+            input[type="date"]::-webkit-calendar-picker-indicator { display: none !important; }
         }
     </style>
 </head>
 <body class="py-4 sm:py-10 px-2 sm:px-4">
 
-    <div class="max-w-4xl mx-auto bg-white p-5 sm:p-8 md:p-16 paper-shadow rounded-lg text-[14px] sm:text-[15px] leading-relaxed overflow-hidden print:overflow-visible">
+    <!-- เพิ่มคลาส print:text-[15px] เพื่อให้ฟอนต์ใน PDF ขนาดเท่ากับหน้าคอม -->
+    <div class="max-w-4xl mx-auto bg-white p-5 sm:p-8 md:p-16 paper-shadow rounded-lg text-[14px] sm:text-[15px] print:text-[15px] leading-relaxed overflow-hidden print:overflow-visible">
         <!-- Header / Logo -->
         <div class="flex items-start sm:items-center print:items-center mb-6 border-b pb-6 gap-3 sm:gap-4">
             
@@ -116,14 +119,13 @@
                         </div>
                     </div>
                 </div>
-                <!-- แถวที่ 2-3: ชื่อภาษาอังกฤษ ขยับให้ชิดขึ้น -->
+                <!-- แถวที่ 2-3: ชื่อภาษาอังกฤษ -->
                 <p class="text-[0.8rem] sm:text-[0.95rem] print:text-[0.95rem] text-gray-700 font-medium leading-tight mb-0.5">CPF TRADING COMPANY LIMITED</p>
                 <p class="text-[0.65rem] sm:text-[0.8rem] print:text-[0.8rem] text-gray-500 leading-tight">A MEMBER OF CHAROEN POKPHAND FOODS COMPANY LIMITED</p>
             </div>
         </div>
 
         <!-- Subject and Recipient -->
-        <!-- mt-10 เพื่อเลื่อนลงมา 1 บรรทัดตามความต้องการ -->
         <div class="space-y-4 mb-8 mt-10 print:mt-10">
             <div class="flex items-start gap-2">
                 <span class="font-bold w-12 flex-shrink-0">เรื่อง</span>
@@ -131,7 +133,7 @@
             </div>
             <div class="flex items-start gap-2">
                 <span class="font-bold w-12 flex-shrink-0 pt-0.5">เรียน</span>
-                <input type="text" value="ผู้อำนวยการกองบริหารงานทั่วไป" placeholder="ระบุตำแหน่งผู้รับ" class="fillable-input px-1 w-full sm:max-w-lg text-gray-800">
+                <input type="text" value="ผู้อำนวยการกองบริหารงานทั่วไป" placeholder="ระบุตำแหน่งผู้รับ" class="fillable-input px-1 w-full sm:max-w-lg print:max-w-lg text-gray-800">
             </div>
         </div>
 
@@ -141,18 +143,16 @@
                 เนื่องด้วยทางบริษัท ซีพีเอฟ เทรดดิ้ง จำกัด ซึ่งเป็นผู้ผลิตและจำหน่ายผลิตภัณฑ์แปรรูปจากเนื้อสัตว์ ซึ่งได้แก่ ไส้กรอก, ลูกชิ้น, โบโลน่า, แฮม, หมู, ไก่ ฯลฯ ภายใต้แบรนด์ <span class="font-bold text-red-600">CP, BKP</span> ผลิตภัณฑ์ที่มีประสิทธิภาพประกันความปลอดภัยด้วยระบบ <span class="font-semibold">HACCP</span> และ <span class="font-semibold">ISO 9002</span> มีความยินดีขอเสนอผลิตภัณฑ์สินค้าราคาพิเศษ เพื่อเป็นสวัสดิการให้กับพนักงานในหน่วยงานของท่านในราคาพิเศษ ซึ่ง<span class="bg-yellow-100 px-1 font-bold">ลดราคา 30 - 40% จากราคาปกติ</span> และเพื่อตอบสนองนโยบายของรัฐบาลในการจำหน่ายสินค้าที่มีคุณภาพ ได้มาตรฐานในราคาประหยัดให้กับผู้บริโภค (รายการตามเอกสารแนบ)
             </p>
 
-            <!-- ย่อหน้าที่ 2: ปรับมาใช้ <p> แท็กเดียวเพื่อให้การตัดคำเว้นบรรทัดเป็นไปตามธรรมชาติของข้อความ -->
+            <!-- นำ whitespace-nowrap ออก เพื่อให้ข้อความตัดคำได้อิสระ ไม่ดึงกันเป็นก้อนใน PDF -->
             <p class="indent-12 text-justify leading-relaxed sm:leading-[2.5] print:leading-[2.5]">
-                อนึ่ง ทางบริษัทฯ มีความประสงค์ขอใช้พื้นที่ในการจำหน่ายสินค้าสวัสดิการพนักงาน <span class="whitespace-nowrap">ในวันที่ 
-                <!-- ปรับ text-left เป็น text-right -->
-                <input type="text" value="12, 19, 26 ธันวาคม" placeholder="ระบุวันที่จัดงาน" class="fillable-input px-2 font-bold w-[160px] sm:w-[180px] text-right text-gray-800"></span>
-                <span class="whitespace-nowrap">ตั้งแต่เวลา 
-                <input type="text" value="8.00" placeholder="เริ่ม" class="fillable-input px-2 font-bold w-[60px] sm:w-[70px] text-center text-gray-800"></span>
-                <span class="whitespace-nowrap">ถึง 
-                <input type="text" value="17.00" placeholder="สิ้นสุด" class="fillable-input px-2 font-bold w-[60px] sm:w-[70px] text-center text-gray-800">
-                น.</span> <span class="whitespace-nowrap">ขนาดพื้นที่ 2 เมตร บริเวณ 
-                <!-- ปรับ text-left เป็น text-center -->
-                <input type="text" value="" placeholder="ระบุสถานที่/จุดตั้งบูธ" class="fillable-input px-2 font-bold w-[200px] sm:w-[240px] text-center text-gray-800"></span>
+                อนึ่ง ทางบริษัทฯ มีความประสงค์ขอใช้พื้นที่ในการจำหน่ายสินค้าสวัสดิการพนักงาน ในวันที่ 
+                <input type="text" value="12, 19, 26 ธันวาคม" placeholder="ระบุวันที่จัดงาน" class="fillable-input px-2 font-bold w-[160px] sm:w-[180px] print:w-[180px] text-center text-gray-800">
+                ตั้งแต่เวลา 
+                <input type="text" value="8.00" placeholder="เริ่ม" class="fillable-input px-2 font-bold w-[60px] sm:w-[70px] print:w-[70px] text-center text-gray-800">
+                ถึง 
+                <input type="text" value="17.00" placeholder="สิ้นสุด" class="fillable-input px-2 font-bold w-[60px] sm:w-[70px] print:w-[70px] text-center text-gray-800">
+                น. ขนาดพื้นที่ 2 เมตร บริเวณ 
+                <input type="text" value="" placeholder="ระบุสถานที่/จุดตั้งบูธ" class="fillable-input px-2 font-bold w-[200px] sm:w-[240px] print:w-[240px] text-center text-gray-800">
                 ทางบริษัทฯ หวังเป็นอย่างยิ่งว่าจะได้รับความกรุณาจากท่านในการจำหน่ายสินค้าในหน่วยงานของท่านและขอขอบคุณมา ณ โอกาสนี้
             </p>
 
@@ -160,8 +160,8 @@
         </div>
 
         <!-- Contact & Signature -->
-        <div class="mt-20 grid grid-cols-1 sm:grid-cols-2 gap-8 break-inside-avoid">
-            <div class="bg-gray-50 p-5 rounded-md border border-gray-200 shadow-sm flex flex-col justify-center">
+        <div class="mt-20 grid grid-cols-1 sm:grid-cols-2 print:grid-cols-2 gap-8 print:gap-8 break-inside-avoid">
+            <div class="bg-gray-50 p-5 print:p-5 rounded-md border border-gray-200 print:border-gray-200 shadow-sm print:shadow-none flex flex-col justify-center">
                 <h3 class="font-bold text-gray-700 mb-3 border-b pb-2">ข้อมูลติดต่อและยานพาหนะ</h3>
                 <div class="flex gap-2 mb-2">
                     <span class="font-semibold text-gray-600 w-16">ผู้ติดต่อ:</span> 
@@ -171,7 +171,7 @@
                     <span class="font-semibold text-gray-600 w-16">โทร:</span> 
                     <input type="tel" value="088-952-2797, 095-963-1395" class="fillable-input px-1 flex-1 text-sm text-gray-800">
                 </div>
-                <div class="flex gap-2 mt-3 p-2 bg-red-50 rounded items-center">
+                <div class="flex gap-2 mt-3 p-2 bg-red-50 print:bg-red-50 rounded items-center">
                     <span class="font-semibold text-red-700 whitespace-nowrap text-sm">ทะเบียนรถ:</span> 
                     <input type="text" value="ศต 7976 กรุงเทพมหานคร" class="fillable-input px-1 w-full text-sm text-red-700 bg-transparent">
                 </div>
@@ -181,10 +181,10 @@
                 <p class="mb-10">ขอแสดงความนับถือ</p>
                 <div class="flex items-end justify-center w-full">
                     <span>(</span>
-                    <input type="text" value="ศักดิ์ชัย คำมี" class="fillable-input px-1 py-1 text-center font-bold text-lg w-[70%] sm:w-48 text-gray-800 mx-1">
+                    <input type="text" value="ศักดิ์ชัย คำมี" class="fillable-input px-1 py-1 text-center font-bold text-lg w-[70%] sm:w-48 print:w-48 text-gray-800 mx-1">
                     <span>)</span>
                 </div>
-                <input type="text" value="หัวหน้าเขตส่งเสริมการขาย" class="fillable-input text-center text-gray-600 text-sm w-[80%] sm:w-56">
+                <input type="text" value="หัวหน้าเขตส่งเสริมการขาย" class="fillable-input text-center text-gray-600 text-sm w-[80%] sm:w-56 print:w-56">
             </div>
         </div>
 
@@ -235,9 +235,7 @@
                     const swBlob = new Blob([swCode], { type: 'text/javascript' });
                     const swUrl = URL.createObjectURL(swBlob);
                     
-                    navigator.serviceWorker.register(swUrl).catch(err => {
-                        // Ignore registration errors in preview mode
-                    });
+                    navigator.serviceWorker.register(swUrl).catch(err => {});
                 }
             } catch (e) {}
 
