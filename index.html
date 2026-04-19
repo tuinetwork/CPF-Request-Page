@@ -206,6 +206,12 @@
                 </svg>
                 ล้างข้อมูล
             </button>
+            <button onclick="restoreDefaults()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-8 rounded-full shadow-lg flex items-center justify-center transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                คืนค่าเดิม
+            </button>
             <button id="install-pwa-btn" class="hidden bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg flex items-center justify-center transition">
                 ติดตั้งแอป (PWA)
             </button>
@@ -360,7 +366,17 @@
             });
             document.getElementById('doc-date-display').innerText = '';
             document.body.classList.add('cleared');
-            showToast('ล้างข้อมูลแล้ว กด Refresh เพื่อคืนค่าเดิม');
+            showToast('ล้างข้อมูลแล้ว');
+        }
+
+        function restoreDefaults() {
+            document.querySelectorAll('input.fillable-input').forEach(input => {
+                input.value = input.defaultValue;
+            });
+            const today = new Date();
+            updateDateDisplay(today.getDate(), today.getMonth(), today.getFullYear());
+            document.body.classList.remove('cleared');
+            showToast('คืนค่าเดิมเรียบร้อย');
         }
 
         function handlePrint() {
