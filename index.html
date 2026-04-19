@@ -25,10 +25,11 @@
         }
         
         .fillable-input {
-            border-bottom: 1px dotted #9ca3af;
+            border-bottom: 2px dotted #9ca3af;
             background-color: transparent;
             transition: all 0.2s;
             display: inline-block;
+            vertical-align: bottom;
         }
         .fillable-input:focus {
             outline: none;
@@ -133,7 +134,7 @@
             </div>
             <div class="flex items-start gap-2">
                 <span class="font-bold w-12 flex-shrink-0 pt-0.5">เรียน</span>
-                <input type="text" value="ผู้อำนวยการกองบริหารงานทั่วไป" placeholder="ระบุตำแหน่งผู้รับ" class="fillable-input px-1 w-full sm:max-w-lg print:max-w-lg text-gray-800">
+                <input type="text" value="" placeholder="" class="fillable-input px-1 w-full sm:max-w-lg print:max-w-lg text-gray-800">
             </div>
         </div>
 
@@ -146,11 +147,11 @@
             <!-- นำ whitespace-nowrap ออก เพื่อให้ข้อความตัดคำได้อิสระ ไม่ดึงกันเป็นก้อนใน PDF -->
             <p class="indent-12 text-justify leading-relaxed sm:leading-[2.5] print:leading-[2.5]">
                 อนึ่ง ทางบริษัทฯ มีความประสงค์ขอใช้พื้นที่ในการจำหน่ายสินค้าสวัสดิการพนักงาน ในวันที่ 
-                <input type="text" value="12, 19, 26 ธันวาคม" placeholder="ระบุวันที่จัดงาน" class="fillable-input px-2 font-bold w-[160px] sm:w-[180px] print:w-[180px] text-center text-gray-800">
+                <input type="text" value="" placeholder="" class="fillable-input px-2 font-bold w-[160px] sm:w-[180px] print:w-[180px] text-center text-gray-800">
                 ตั้งแต่เวลา 
-                <input type="text" value="8.00" placeholder="เริ่ม" class="fillable-input px-2 font-bold w-[60px] sm:w-[70px] print:w-[70px] text-center text-gray-800">
-                ถึง 
-                <input type="text" value="17.00" placeholder="สิ้นสุด" class="fillable-input px-2 font-bold w-[60px] sm:w-[70px] print:w-[70px] text-center text-gray-800">
+                <input type="text" value="" placeholder="" class="fillable-input px-2 font-bold w-[60px] sm:w-[70px] print:w-[70px] text-center text-gray-800">
+                ถึง
+                <input type="text" value="" placeholder="" class="fillable-input px-2 font-bold w-[60px] sm:w-[70px] print:w-[70px] text-center text-gray-800">
                 น. ขนาดพื้นที่ 2 เมตร บริเวณ 
                 <input type="text" value="" placeholder="ระบุสถานที่/จุดตั้งบูธ" class="fillable-input px-2 font-bold w-[200px] sm:w-[240px] print:w-[240px] text-center text-gray-800">
                 ทางบริษัทฯ หวังเป็นอย่างยิ่งว่าจะได้รับความกรุณาจากท่านในการจำหน่ายสินค้าในหน่วยงานของท่านและขอขอบคุณมา ณ โอกาสนี้
@@ -165,15 +166,15 @@
                 <h3 class="font-bold text-gray-700 mb-3 border-b pb-2">ข้อมูลติดต่อและยานพาหนะ</h3>
                 <div class="flex gap-2 mb-2">
                     <span class="font-semibold text-gray-600 w-16">ผู้ติดต่อ:</span> 
-                    <input type="text" value="ศักดิ์ชัย คำมี" class="fillable-input px-1 flex-1 text-sm text-gray-800">
+                    <input type="text" value="" class="fillable-input px-1 flex-1 text-sm text-gray-800">
                 </div>
                 <div class="flex gap-2 mb-2">
                     <span class="font-semibold text-gray-600 w-16">โทร:</span> 
-                    <input type="tel" value="088-952-2797, 095-963-1395" class="fillable-input px-1 flex-1 text-sm text-gray-800">
+                    <input type="tel" value="" class="fillable-input px-1 flex-1 text-sm text-gray-800">
                 </div>
                 <div class="flex gap-2 mt-3 p-2 bg-red-50 print:bg-red-50 rounded items-center">
                     <span class="font-semibold text-red-700 whitespace-nowrap text-sm">ทะเบียนรถ:</span> 
-                    <input type="text" value="ศต 7976 กรุงเทพมหานคร" class="fillable-input px-1 w-full text-sm text-red-700 bg-transparent">
+                    <input type="text" value="" class="fillable-input px-1 w-full text-sm text-red-700 bg-transparent">
                 </div>
             </div>
 
@@ -181,10 +182,10 @@
                 <p class="mb-10">ขอแสดงความนับถือ</p>
                 <div class="flex items-end justify-center w-full">
                     <span>(</span>
-                    <input type="text" value="ศักดิ์ชัย คำมี" class="fillable-input px-1 py-1 text-center font-bold text-lg w-[70%] sm:w-48 print:w-48 text-gray-800 mx-1">
+                    <input type="text" value="" class="fillable-input px-1 py-1 text-center font-bold text-lg w-[70%] sm:w-48 print:w-48 text-gray-800 mx-1">
                     <span>)</span>
                 </div>
-                <input type="text" value="หัวหน้าเขตส่งเสริมการขาย" class="fillable-input text-center text-gray-600 text-sm w-[80%] sm:w-56 print:w-56">
+                <input type="text" value="" class="fillable-input text-center text-gray-600 text-sm w-[80%] sm:w-56 print:w-56">
             </div>
         </div>
 
