@@ -72,6 +72,10 @@
             body.cleared input, body.cleared .fillable-input {
                 border-bottom: 1px solid rgba(0, 0, 0, 0.5) !important;
             }
+            /* ยกเว้นฟีลในวงเล็บ (ชื่อในลายเซ็น) ไม่ต้องมีเส้น */
+            body.cleared .print-no-line {
+                border-bottom: none !important;
+            }
             input::placeholder { color: transparent !important; }
             input[type="date"]::-webkit-calendar-picker-indicator { display: none !important; }
         }
@@ -185,7 +189,7 @@
                 <p class="mb-10">ขอแสดงความนับถือ</p>
                 <div class="flex items-end justify-center w-full">
                     <span>(</span>
-                    <input type="text" value="ศักดิ์ชัย คำมี" class="fillable-input px-1 py-1 text-center font-bold text-lg w-[70%] sm:w-48 print:w-48 text-gray-800 mx-1">
+                    <input type="text" value="ศักดิ์ชัย คำมี" class="fillable-input print-no-line px-1 py-1 text-center font-bold text-lg w-[70%] sm:w-48 print:w-48 text-gray-800 mx-1">
                     <span>)</span>
                 </div>
                 <input type="text" value="หัวหน้าเขตส่งเสริมการขาย" class="fillable-input text-center text-gray-600 text-sm w-[80%] sm:w-56 print:w-56">
