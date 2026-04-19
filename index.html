@@ -196,6 +196,12 @@
                 </svg>
                 บันทึกเป็น PDF
             </button>
+            <button onclick="clearAllFields()" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-full shadow-lg flex items-center justify-center transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+                ล้างข้อมูล
+            </button>
             <button id="install-pwa-btn" class="hidden bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg flex items-center justify-center transition">
                 ติดตั้งแอป (PWA)
             </button>
@@ -342,6 +348,15 @@
                 toast.style.opacity = '0';
                 setTimeout(() => toast.remove(), 500);
             }, 3000);
+        }
+
+        function clearAllFields() {
+            const dots = '....................';
+            document.querySelectorAll('input.fillable-input').forEach(input => {
+                input.value = dots;
+            });
+            document.getElementById('doc-date-display').innerText = '....................';
+            showToast('ล้างข้อมูลแล้ว กด Refresh เพื่อคืนค่าเดิม');
         }
 
         function handlePrint() {
