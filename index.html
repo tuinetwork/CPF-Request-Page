@@ -62,9 +62,10 @@
                 padding: 4rem !important; /* ระยะขอบกระดาษ */
             }
 
-            /* นำเส้นประออกใน PDF */
+            /* เปลี่ยนเส้นประเป็นเส้นทึบด้านล่างใน PDF เพื่อให้ฟีลว่างมีเส้นสำหรับเขียน */
             input, .fillable-input {
                 border: none !important;
+                border-bottom: 1px solid #333 !important;
                 background-color: transparent !important;
                 margin: 0 !important;
             }
@@ -351,11 +352,10 @@
         }
 
         function clearAllFields() {
-            const dots = '....................';
             document.querySelectorAll('input.fillable-input').forEach(input => {
-                input.value = dots;
+                input.value = '';
             });
-            document.getElementById('doc-date-display').innerText = '....................';
+            document.getElementById('doc-date-display').innerText = '';
             showToast('ล้างข้อมูลแล้ว กด Refresh เพื่อคืนค่าเดิม');
         }
 
