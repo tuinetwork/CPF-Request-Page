@@ -204,6 +204,12 @@
                 </svg>
                 บันทึกเป็น PDF
             </button>
+            <button onclick="saveToStorage()" class="bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 px-8 rounded-full shadow-lg flex items-center justify-center transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+                </svg>
+                บันทึกข้อมูล
+            </button>
             <button onclick="clearAllFields()" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-full shadow-lg flex items-center justify-center transition">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -283,7 +289,39 @@
         window.addEventListener('DOMContentLoaded', () => {
             const today = new Date();
             updateDateDisplay(today.getDate(), today.getMonth(), today.getFullYear());
+            loadFromStorage();
         });
+
+        const STORAGE_KEY = 'cpf-form-v1';
+
+        function saveToStorage() {
+            const values = Array.from(document.querySelectorAll('input.fillable-input')).map(i => i.value);
+            const payload = {
+                values,
+                date: { day: selectedDay, month: selectedMonth, year: selectedYear }
+            };
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+                showToast('บันทึกข้อมูลเรียบร้อย');
+            } catch (e) {
+                showToast('บันทึกไม่สำเร็จ');
+            }
+        }
+
+        function loadFromStorage() {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            if (!raw) return;
+            try {
+                const { values, date } = JSON.parse(raw);
+                const inputs = document.querySelectorAll('input.fillable-input');
+                if (Array.isArray(values)) {
+                    values.forEach((v, i) => { if (inputs[i]) inputs[i].value = v; });
+                }
+                if (date && date.day != null) {
+                    updateDateDisplay(date.day, date.month, date.year);
+                }
+            } catch (e) {}
+        }
 
         function updateDateDisplay(d, m, y) {
             const dayStr = String(d).padStart(2, '0');
@@ -380,6 +418,7 @@
             const today = new Date();
             updateDateDisplay(today.getDate(), today.getMonth(), today.getFullYear());
             document.body.classList.remove('cleared');
+            localStorage.removeItem(STORAGE_KEY);
             showToast('คืนค่าเดิมเรียบร้อย');
         }
 
